@@ -11,7 +11,7 @@ const verifyToken = async (request: any, response: any, next: any) => {
 
   if (!token) return response.status(401).json({ error: "Access denied" });
 
-  if (user?.role === "Admin") {
+  if (user?.role === "User") {
     try {
       const decoded: any = jwt.verify(token, "pinecone-test");
       request.userId = decoded.userId;
