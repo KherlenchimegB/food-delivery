@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { User } from "../models/user.models.js";
 
-const verifyToken = async (request: Request, response: Response, next: any) => {
+const verifyToken = async (request: any, response: any, next: any) => {
   const token = request.header("Authorization");
-  // const { email, password } = request.body;
+
   const user = await User.findOne(request.userId);
 
   console.log("user", user);
@@ -13,7 +13,7 @@ const verifyToken = async (request: Request, response: Response, next: any) => {
 
   if (user?.role === "Admin") {
     try {
-      const decoded = jwt.verify(token, "pinecone-test");
+      const decoded: any = jwt.verify(token, "pinecone-test");
       request.userId = decoded.userId;
       next();
     } catch (error) {
