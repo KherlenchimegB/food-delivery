@@ -77,6 +77,23 @@ export const signUp = async (request: Request, response: Response) => {
   }
 };
 
+export const updateUser = async (request: Request, response: Response) => {
+  try {
+    const updatedUser = request.body;
+    const { userId } = request.params;
+    const user = await User.findByIdAndUpdate(userId, updatedUser, {
+      new: true,
+    });
+
+    response.json({ success: true, data: user });
+  } catch (error) {
+    response.status(444).json({
+      success: false,
+      error: error,
+    });
+  }
+};
+
 export const resetPasswordRequest = (request: Request, response: Response) => {
   response.send("auth/resetPassword huselt irlee");
 };
@@ -99,7 +116,7 @@ export const verifyResetPasswordRequest = async (
       });
     } else {
       const token = jwt.sign({ userId: user?._id || "" }, "pinecone-test", {
-        expiresIn: "1h",
+        expiresIn: "24h",
       });
       response.status(200).json({
         success: true,
