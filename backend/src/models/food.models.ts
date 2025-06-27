@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const { Schema, model } = mongoose;
+const { Schema, model, Types } = mongoose;
 
 const food = new Schema(
   {
@@ -8,6 +8,7 @@ const food = new Schema(
     price: { type: Number, required: true },
     image: String,
     ingredients: String,
+    category: { type: Types.ObjectId, ref: "Category", required: true },
   },
   { timestamps: true }
 );

@@ -9,8 +9,8 @@ const user = new Schema({
   address: String,
   role: {
     type: String,
-    enum: ["User", "Admin"],
-    default: "User",
+    enum: ["USER", "ADMIN"],
+    default: "USER",
   },
   isVerified: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
